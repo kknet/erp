@@ -25,7 +25,7 @@ class FragmentRendererPass implements CompilerPassInterface
     private $rendererTag;
 
     /**
-     * @param string $handlerService Service name of the fragment handler in the container
+     * @param string $handlerService Services name of the fragment handler in the container
      * @param string $rendererTag    Tag name used for fragments
      */
     public function __construct($handlerService = 'fragment.handler', $rendererTag = 'kernel.fragment_renderer')
@@ -54,7 +54,7 @@ class FragmentRendererPass implements CompilerPassInterface
             $class = $container->getParameterBag()->resolveValue($def->getClass());
             $interface = 'Symfony\Component\HttpKernel\Fragment\FragmentRendererInterface';
             if (!is_subclass_of($class, $interface)) {
-                throw new \InvalidArgumentException(sprintf('Service "%s" must implement interface "%s".', $id, $interface));
+                throw new \InvalidArgumentException(sprintf('Services "%s" must implement interface "%s".', $id, $interface));
             }
 
             foreach ($tags as $tag) {

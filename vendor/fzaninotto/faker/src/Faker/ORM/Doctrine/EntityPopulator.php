@@ -7,7 +7,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\ClassMetadata;
 
 /**
- * Service class for populating a table through a Doctrine Entity class.
+ * Services class for populating a table through a Doctrine Entity class.
  */
 class EntityPopulator
 {

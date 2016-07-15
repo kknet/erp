@@ -60,9 +60,9 @@ class Store implements StoreInterface
         $error = error_get_last();
         if (1 === $error['type'] && false === headers_sent()) {
             // send a 503
-            header('HTTP/1.0 503 Service Unavailable');
+            header('HTTP/1.0 503 Services Unavailable');
             header('Retry-After: 10');
-            echo '503 Service Unavailable';
+            echo '503 Services Unavailable';
         }
     }
 

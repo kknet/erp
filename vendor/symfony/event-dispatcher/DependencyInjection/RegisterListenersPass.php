@@ -37,7 +37,7 @@ class RegisterListenersPass implements CompilerPassInterface
     /**
      * Constructor.
      *
-     * @param string $dispatcherService Service name of the event dispatcher in processed container
+     * @param string $dispatcherService Services name of the event dispatcher in processed container
      * @param string $listenerTag       Tag name used for listener
      * @param string $subscriberTag     Tag name used for subscribers
      */
@@ -70,7 +70,7 @@ class RegisterListenersPass implements CompilerPassInterface
                 $priority = isset($event['priority']) ? $event['priority'] : 0;
 
                 if (!isset($event['event'])) {
-                    throw new \InvalidArgumentException(sprintf('Service "%s" must define the "event" attribute on "%s" tags.', $id, $this->listenerTag));
+                    throw new \InvalidArgumentException(sprintf('Services "%s" must define the "event" attribute on "%s" tags.', $id, $this->listenerTag));
                 }
 
                 if (!isset($event['method'])) {
@@ -100,7 +100,7 @@ class RegisterListenersPass implements CompilerPassInterface
 
             $interface = 'Symfony\Component\EventDispatcher\EventSubscriberInterface';
             if (!is_subclass_of($class, $interface)) {
-                throw new \InvalidArgumentException(sprintf('Service "%s" must implement interface "%s".', $id, $interface));
+                throw new \InvalidArgumentException(sprintf('Services "%s" must implement interface "%s".', $id, $interface));
             }
 
             $definition->addMethodCall('addSubscriberService', array($id, $class));
