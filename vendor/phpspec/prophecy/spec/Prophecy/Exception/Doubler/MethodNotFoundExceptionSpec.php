@@ -9,7 +9,7 @@ class MethodNotFoundExceptionSpec extends ObjectBehavior
 {
     function let()
     {
-        $this->beConstructedWith('', 'User', 'getName', array(1, 2, 3));
+        $this->beConstructedWith('', 'Member', 'getName', array(1, 2, 3));
     }
 
     function it_is_DoubleException()
@@ -24,7 +24,7 @@ class MethodNotFoundExceptionSpec extends ObjectBehavior
 
     function it_has_classnamej()
     {
-        $this->getClassname()->shouldReturn('User');
+        $this->getClassname()->shouldReturn('Member');
     }
 
     function it_has_an_arguments_list()
@@ -34,7 +34,7 @@ class MethodNotFoundExceptionSpec extends ObjectBehavior
 
     function it_has_a_default_null_argument_list()
     {
-        $this->beConstructedWith('', 'User', 'getName');
+        $this->beConstructedWith('', 'Member', 'getName');
         $this->getArguments()->shouldReturn(null);
     }
 }

@@ -11,9 +11,25 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+$router->group([
+    'middleware' => 'auth'
+], function () {
+    Route::get('/', function () {
+        return view('index');
+    });
 });
 
-Route::resource('user', 'UserController');
-Route::resource('record', 'RecordController');
+
+$router->group([
+    'namespace' => 'Member'
+], function () {
+    Route::get('user/login', 'UserController@login');
+    Route::post('user/check', 'UserController@checkMsg');
+    Route::get('user/logout', 'UserController@logout');
+    Route::resource('user', 'UserController');
+});
+
+
+
+
+
