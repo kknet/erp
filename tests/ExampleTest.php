@@ -14,6 +14,9 @@ class ExampleTest extends TestCase
     public function testBasicExample()
     {
         $this->visit('/')
-             ->see('Laravel 5');
+            ->type('chw', 'name')
+            ->type('123456', 'password')
+            ->press('登录')->seePageIs('/');
     }
+
 }

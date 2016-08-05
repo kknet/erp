@@ -17,7 +17,7 @@ class UserService extends Service
 {
 
 
-    function register($data = null)
+    function register($data = [])
     {
         User::create([
             'name' => $data['name'],
@@ -25,6 +25,22 @@ class UserService extends Service
             'password' => bcrypt($data['password']),
             'role' => $data['role']
         ]);
+    }
+
+    function update($user = [])
+    {
+        User::updateInfo($user);
+    }
+
+
+    function getUsersExpectManager()
+    {
+        return User::all() ?: [];
+    }
+
+    function getUserByID($id = 0)
+    {
+        return User::find($id);
     }
 
 }

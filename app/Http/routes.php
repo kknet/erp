@@ -30,6 +30,13 @@ $router->group([
 });
 
 
+$router->group([
+    'namespace' => 'Order',
+    'middleware' => 'auth'
+], function () {
+    Route::resource('order', 'OrderController');
+});
+
 
 
 

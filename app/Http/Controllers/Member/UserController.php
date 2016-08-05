@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Auth;
 use Config;
+use User;
 
 class UserController extends Controller
 {
@@ -19,14 +20,14 @@ class UserController extends Controller
 
 
     /**
-     * Display a listing of the resource.
+     * 返回除总经理以外所有用户信息
      *
-     * @return \Illuminate\Http\Response
+     * @return mixed
      */
     public function index()
     {
-        //
-
+        $users = $this->userService->getUsersExpectManager();
+        return view('', ['users' => $users]);
     }
 
     /**
@@ -54,6 +55,7 @@ class UserController extends Controller
         $userInfo = compact('name', 'password');
 
         if (Auth::attempt($userInfo, $remember)) {
+            $request->session()->put('user', Auth::getUser());
             return redirect('/');
         } else {
             return view('user.login', ['error' => '用户名或密码错误']);
@@ -109,29 +111,33 @@ class UserController extends Controller
 
 
     /**
-     * Display the specified resource.
+     * 返回特定用户信息
      *
      * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @return mixed
      */
     public function show($id)
     {
-        //
+        $user = $this->userService->getUserByID($id);
+
+        return view('', ['user' => $user]);
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * 跳转至用户编辑页面
      *
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        //
+        $user = $this->userService->getUserByID($id);
+
+        return view('', ['user' => $user]);
     }
 
     /**
-     * Update the specified resource in storage.
+     * 更新单用户信息
      *
      * @param  \Illuminate\Http\Request $request
      * @param  int $id
@@ -139,7 +145,18 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $messages = Config::get('member.auth.messages');
+        $validator = Config::get('member.auth.validator');
+        $this->validate($request, $validator, $messages);
+
+        $name = $request->get('name');
+        $password = $request->get('password');
+        $email = $request->get('email');
+        $role = $request->get('role');
+
+        $param = compact('name', 'password', 'email', 'role');
+
+
     }
 
     /**
