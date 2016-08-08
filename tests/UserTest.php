@@ -50,7 +50,7 @@ class UserTest extends TestCase
 
     public function testGetUsersExpectManager()
     {
-        echo $this->userService->getUsersExpectManager();
+        echo $this->userService->getUsers();
     }
 
     public function testGetUserByID()

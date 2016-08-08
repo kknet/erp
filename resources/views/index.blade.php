@@ -27,7 +27,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#"><span>Lumino</span>Admin</a>
+            <a class="navbar-brand" href="/"><span>Oiltech</span>奥坦科</a>
             <ul class="user-menu">
                 <li class="dropdown pull-right">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span
@@ -51,11 +51,11 @@
         </div>
     </form>
     <ul class="nav menu">
-        <li class="active"><a href="index.html"><span class="glyphicon glyphicon-dashboard"></span> Dashboard</a></li>
-        <li><a href="widgets.html"><span class="glyphicon glyphicon-th"></span> Widgets</a></li>
-        <li><a href="charts.html"><span class="glyphicon glyphicon-stats"></span> Charts</a></li>
-        <li><a href="tables.html"><span class="glyphicon glyphicon-list-alt"></span> Tables</a></li>
-        <li><a href="forms.html"><span class="glyphicon glyphicon-pencil"></span> Forms</a></li>
+        <li class="active"><a href="/"><span class="glyphicon glyphicon-dashboard"></span> 概览板</a></li>
+        <li><a href="widgets.html"><span class="glyphicon glyphicon-th"></span> 日程</a></li>
+        <li><a href="charts.html"><span class="glyphicon glyphicon-stats"></span> 图表</a></li>
+        <li><a href="/user"><span class="glyphicon glyphicon-list-alt"></span> 用户信息</a></li>
+        <li><a href="forms.html"><span class="glyphicon glyphicon-pencil"></span> 订单信息</a></li>
         <li><a href="panels.html"><span class="glyphicon glyphicon-info-sign"></span> Alerts &amp; Panels</a></li>
         <li class="parent ">
             <a href="#">
@@ -84,25 +84,21 @@
         <li role="presentation" class="divider"></li>
         <li><a href="login.html"><span class="glyphicon glyphicon-user"></span> Login Page</a></li>
     </ul>
-    <div class="attribution">More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> -
-        Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></div>
 </div><!--/.sidebar-->
 
 <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
     <div class="row">
         <ol class="breadcrumb">
             <li><a href="#"><span class="glyphicon glyphicon-home"></span></a></li>
-            <li class="active">Dashboard</li>
+            <li class="active">概览板</li>
         </ol>
     </div><!--/.row-->
 
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">Dashboard</h1>
+            <h1 class="page-header">概览板</h1>
         </div>
     </div><!--/.row-->
-
-    <div class="copyrights">Collect from <a href="http://www.cssmoban.com/">网页模板</a></div>
 
     <div class="row">
         <div class="col-xs-12 col-md-6 col-lg-3">

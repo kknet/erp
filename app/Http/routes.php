@@ -23,10 +23,11 @@ $router->group([
 $router->group([
     'namespace' => 'Member'
 ], function () {
+    Route::resource('user', 'UserController');
     Route::get('user/login', 'UserController@login');
     Route::post('user/check', 'UserController@checkMsg');
     Route::get('user/logout', 'UserController@logout');
-    Route::resource('user', 'UserController');
+    Route::get('user/{id}/delete', 'UserController@destroy');
 });
 
 

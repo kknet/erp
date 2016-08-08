@@ -27,7 +27,7 @@ class UserController extends Controller
     public function index()
     {
         $users = $this->userService->getUsers();
-        return view('', ['users' => $users]);
+        return view('user.list', ['users' => $users]);
     }
 
 
@@ -135,21 +135,21 @@ class UserController extends Controller
     {
         $user = $this->userService->getUserByID($id);
 
-        return view('', ['user' => $user]);
+        return view('user.update', ['user' => $user]);
     }
 
 
     /**
      * 更新单用户信息
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param  Request $request
      * @param  int $id
      * @return mixed
      */
     public function update(Request $request, $id)
     {
-        $messages = Config::get('member.auth.messages');
-        $validator = Config::get('member.auth.validator');
+        $messages = Config::get('member.update.messages');
+        $validator = Config::get('member.update.validator');
         $this->validate($request, $validator, $messages);
 
         $name = $request->get('name');
@@ -160,7 +160,7 @@ class UserController extends Controller
 
         $this->userService->update($param);
 
-        return view('');
+        return redirect()->action('Member\UserController@index');
     }
 
 
@@ -173,7 +173,7 @@ class UserController extends Controller
     public function destroy($id)
     {
         $this->userService->dropUserByID($id);
-        return view('');
+        return redirect()->action('Member\UserController@index');
     }
 
 }
