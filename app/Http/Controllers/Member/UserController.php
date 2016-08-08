@@ -20,15 +20,16 @@ class UserController extends Controller
 
 
     /**
-     * 返回除总经理以外所有用户信息
+     * 返回所有用户信息
      *
      * @return mixed
      */
     public function index()
     {
-        $users = $this->userService->getUsersExpectManager();
+        $users = $this->userService->getUsers();
         return view('', ['users' => $users]);
     }
+
 
     /**
      * 跳转至登录页面
@@ -123,11 +124,12 @@ class UserController extends Controller
         return view('', ['user' => $user]);
     }
 
+
     /**
      * 跳转至用户编辑页面
      *
      * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @return mixed
      */
     public function edit($id)
     {
@@ -136,12 +138,13 @@ class UserController extends Controller
         return view('', ['user' => $user]);
     }
 
+
     /**
      * 更新单用户信息
      *
      * @param  \Illuminate\Http\Request $request
      * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @return mixed
      */
     public function update(Request $request, $id)
     {
@@ -150,24 +153,27 @@ class UserController extends Controller
         $this->validate($request, $validator, $messages);
 
         $name = $request->get('name');
-        $password = $request->get('password');
         $email = $request->get('email');
         $role = $request->get('role');
 
-        $param = compact('name', 'password', 'email', 'role');
+        $param = compact('id', 'name', 'email', 'role');
 
+        $this->userService->update($param);
 
+        return view('');
     }
 
+
     /**
-     * Remove the specified resource from storage.
+     * 删除特定用户
      *
      * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @return mixed
      */
     public function destroy($id)
     {
-        //
+        $this->userService->dropUserByID($id);
+        return view('');
     }
 
 }

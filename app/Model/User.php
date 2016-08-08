@@ -31,13 +31,4 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    static function updateInfo($params = [])
-    {
-        $user = User::find($params['id']);
-        if ($user) {
-
-        }
-
-    }
-
 }

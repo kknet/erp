@@ -1,13 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * Member: Administrator
- * Date: 2016/7/15
- * Time: 15:22
- */
 
 namespace App\Services\User;
-
 
 use App\Services\Service;
 use DB;
@@ -17,6 +10,11 @@ class UserService extends Service
 {
 
 
+    /**
+     * 用户注册
+     *
+     * @param array $data
+     */
     function register($data = [])
     {
         User::create([
@@ -27,20 +25,55 @@ class UserService extends Service
         ]);
     }
 
-    function update($user = [])
+
+    /**
+     * 更新用户信息
+     *
+     * @param array $params
+     */
+    function update($params = [])
     {
-        User::updateInfo($user);
+        $user = User::find($params['id']);
+        if ($user) {
+            $user->name = $params['name'];
+            $user->email = $params['email'];
+            $user->role = $params['role'];
+            $user->save();
+        }
     }
 
 
-    function getUsersExpectManager()
+    /**
+     * 获取所有用户信息
+     *
+     * @return array
+     */
+    function getUsers()
     {
         return User::all() ?: [];
     }
 
+
+    /**
+     * 根据id获取特定用户
+     *
+     * @param int $id
+     * @return mixed
+     */
     function getUserByID($id = 0)
     {
         return User::find($id);
+    }
+
+
+    /**
+     * 根据id删除特定用户
+     *
+     * @param int $id
+     */
+    function dropUserByID($id = 0)
+    {
+        User::destroy($id);
     }
 
 }

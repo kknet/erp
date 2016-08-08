@@ -9,7 +9,9 @@ class Order extends Model
 
     protected $table = 'orders';
 
+    protected $fillable = [
 
+    ];
 
 
 }
