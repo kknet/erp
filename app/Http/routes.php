@@ -12,22 +12,21 @@
 */
 
 $router->group([
+    'namespace' => 'Common',
     'middleware' => 'auth'
 ], function () {
-    Route::get('/', function () {
-        return view('index');
-    });
+    Route::get('/', 'IndexController@index');
 });
 
 
 $router->group([
     'namespace' => 'Member'
 ], function () {
-    Route::resource('user', 'UserController');
     Route::get('user/login', 'UserController@login');
     Route::post('user/check', 'UserController@checkMsg');
     Route::get('user/logout', 'UserController@logout');
     Route::get('user/{id}/delete', 'UserController@destroy');
+    Route::resource('user', 'UserController');
 });
 
 
@@ -38,6 +37,22 @@ $router->group([
     Route::resource('order', 'OrderController');
 });
 
+
+$router->group([
+    'namespace' => 'Member'
+], function () {
+    Route::resource('toDoList', 'ToDoListController');
+}
+);
+
+
+// 发送密码重置链接路由
+Route::get('password/email', 'Auth\PasswordController@getEmail');
+Route::post('password/email', 'Auth\PasswordController@postEmail');
+
+// 密码重置路由
+Route::get('password/reset/{token}', 'Auth\PasswordController@getReset');
+Route::post('password/reset', 'Auth\PasswordController@postReset');
 
 
 

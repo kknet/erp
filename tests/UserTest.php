@@ -1,9 +1,7 @@
 <?php
 
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 use App\Services\User\UserService;
+use Config;
 
 class UserTest extends TestCase
 {
@@ -15,6 +13,7 @@ class UserTest extends TestCase
      */
     public function __construct()
     {
+        parent::__construct();
         $this->userService = new UserService();
     }
 
@@ -62,7 +61,12 @@ class UserTest extends TestCase
     {
         $id = 1;
         $name = 'chenwei';
-        $user = compact('id','name');
+        $user = compact('id', 'name');
         $this->userService->update($user);
+    }
+
+    public function test()
+    {
+        echo Config::get('member.auth.validator.name');
     }
 }

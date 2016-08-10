@@ -140,7 +140,7 @@
                         </div>
 
                         <button type="submit" class="btn btn-primary">更新用户</button>
-
+                        <a href="#" onclick="document.reset.submit()">重置密码</a>
                         @if (count($errors) > 0)
                             <div class="alert alert-danger">
                                 <ul>
@@ -151,6 +151,13 @@
                             </div>
                         @endif
                     </form>
+                    <form name='reset' method="POST" action="/password/email">
+                        {!! csrf_field() !!}
+                        <input type="hidden" name="email" value="{{$user->email}}">
+                    </form>
+                    @if(session('status'))
+                        <div class="alert alert-danger">{{session('status')}}</div>
+                    @endif
                 </div>
             </div>
         </div>
