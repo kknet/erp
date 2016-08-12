@@ -38,10 +38,6 @@
                         {{--<div class="form-group">--}}
                             {{--<input class="form-control" placeholder="再次输入密码" name="password_confirmation" type="password" value="">--}}
                         {{--</div>--}}
-                        <div class="form-group">
-                            <input type="radio" name="role" value="1">业务员
-                            <input type="radio" name="role" value="2">财务
-                        </div>
 
                         <button type='submit' class="btn btn-primary">提交</button><a href="/user/login" class="" style="float: right">已有账号？快去登录</a>
                     </fieldset>

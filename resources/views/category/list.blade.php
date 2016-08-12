@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Oiltech - 用户信息</title>
+    <title>Oiltech - 分类管理</title>
 
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/datepicker3.css" rel="stylesheet">
@@ -108,127 +108,44 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="panel panel-default">
-                <div class="panel-heading">更新用户信息</div>
+                <div class="panel-heading">用户信息列表</div>
                 <div class="panel-body">
-                    <form role="form" action="/user/{{$user->id}}" method="post">
-                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                        <input type="hidden" name="_method" value="PUT">
-                        <div class="form-group">
-                            <label>用户名</label>
-                            <input class="form-control" placeholder="用户名" name="name" value="{{$user->name}}">
-                        </div>
-
-                        <div class="form-group">
-                            <label>邮箱</label>
-                            <input class="form-control" placeholder="邮箱" name="email" value="{{$user->email}}">
-                        </div>
-
-                        <div class="form-group">
-                            <label>职务</label>
-                            <div class="radio">
-                                <label>
-                                    <input type="radio" name="role" id="optionsRadios1"
-                                           value="1" {{$user->role===1?'checked':''}}>业务员
-                                </label>
-                            </div>
-                            <div class="radio">
-                                <label>
-                                    <input type="radio" name="role" id="optionsRadios2"
-                                           value="2" {{$user->role===2?'checked':''}}>财务
-                                </label>
-                            </div>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary">更新用户</button>
-                        <a href="#" onclick="document.reset.submit()">重置密码</a>
-                        @if (count($errors) > 0)
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
-                    </form>
-                    <form name='reset' method="POST" action="/password/email">
-                        {!! csrf_field() !!}
-                        <input type="hidden" name="email" value="{{$user->email}}">
-                    </form>
-                    @if(session('status'))
-                        <div class="alert alert-danger">{{session('status')}}</div>
-                    @endif
+                    <table data-toggle="table" data-show-refresh="true" data-show-toggle="true" data-show-columns="true"
+                           data-search="true" data-select-item-name="toolbar1" data-pagination="true"
+                           data-sort-name="name" data-sort-order="desc">
+                        <thead>
+                        <tr>
+                            <th data-field="state" data-checkbox="true">Item ID</th>
+                            <th data-field="id" data-sortable="true">ID</th>
+                            <th data-field="name" data-sortable="true">分类名</th>
+                            <th data-field="operation" data-sortable="false">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody id="category-loop">
+                        @foreach ($categories as $category)
+                            <tr>
+                                <td></td>
+                                <td>{{$category->id}}</td>
+                                <td>{{$category->name}}</td>
+                                <td>
+                                    <a href="/category/{{$category->id}}/edit">编辑</a>|<a
+                                            href="/category/{{$category->id}}/delete">删除</a>
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
+                <div class="input-group category-input">
+                    <input id="btn-input" type="text" class="form-control input-md" placeholder="分类名"/>
+                    <span class="input-group-btn">
+								<button class="btn btn-primary btn-md" id="btn-category"
+                                        onclick="add()">添加分类</button>
+							</span>
                 </div>
             </div>
         </div>
     </div><!--/.row-->
-    <!--/>
-    <div class="row">
-        <div class="col-md-6">
-            <div class="panel panel-default">
-                <div class="panel-heading">Basic Table</div>
-                <div class="panel-body">
-                    <table data-toggle="table" data-url="tables/data2.json">
-                        <thead>
-                        <tr>
-                            <th data-field="id" data-align="right">Item ID</th>
-                            <th data-field="name">Item Name</th>
-                            <th data-field="price">Item Price</th>
-                        </tr>
-                        </thead>
-                    </table>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="panel panel-default">
-                <div class="panel-heading">Styled Table</div>
-                <div class="panel-body">
-                    <table data-toggle="table" id="table-style" data-url="tables/data2.json" data-row-style="rowStyle">
-                        <thead>
-                        <tr>
-                            <th data-field="id" data-align="right">Item ID</th>
-                            <th data-field="name">Item Name</th>
-                            <th data-field="price">Item Price</th>
-                        </tr>
-                        </thead>
-                    </table>
-                    <script>
-                        $(function () {
-                            $('#hover, #striped, #condensed').click(function () {
-                                var classes = 'table';
-
-                                if ($('#hover').prop('checked')) {
-                                    classes += ' table-hover';
-                                }
-                                if ($('#condensed').prop('checked')) {
-                                    classes += ' table-condensed';
-                                }
-                                $('#table-style').bootstrapTable('destroy')
-                                        .bootstrapTable({
-                                            classes: classes,
-                                            striped: $('#striped').prop('checked')
-                                        });
-                            });
-                        });
-
-                        function rowStyle(row, index) {
-                            var classes = ['active', 'success', 'info', 'warning', 'danger'];
-
-                            if (index % 2 === 0 && index / 2 < classes.length) {
-                                return {
-                                    classes: classes[index / 2]
-                                };
-                            }
-                            return {};
-                        }
-                    </script>
-                </div>
-            </div>
-        </div>
-    </div><!--/.row-->
-    <!-->
-
 </div><!--/.main-->
 
 <script src="/js/jquery-1.11.1.min.js"></script>
@@ -239,6 +156,7 @@
 <script src="/js/easypiechart-data.js"></script>
 <script src="/js/bootstrap-datepicker.js"></script>
 <script src="/js/bootstrap-table.js"></script>
+<script src="/js/category-ajax.js"></script>
 <script>
     !function ($) {
         $(document).on("click", "ul.nav li.parent > a > span.icon", function () {

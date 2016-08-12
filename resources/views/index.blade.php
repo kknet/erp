@@ -55,7 +55,7 @@
         <li><a href="widgets.html"><span class="glyphicon glyphicon-th"></span> 日程</a></li>
         <li><a href="charts.html"><span class="glyphicon glyphicon-stats"></span> 图表</a></li>
         <li><a href="/user"><span class="glyphicon glyphicon-list-alt"></span> 用户信息</a></li>
-        <li><a href="forms.html"><span class="glyphicon glyphicon-pencil"></span> 订单信息</a></li>
+        <li><a href="/category"><span class="glyphicon glyphicon-pencil"></span> 分类管理</a></li>
         <li><a href="panels.html"><span class="glyphicon glyphicon-info-sign"></span> Alerts &amp; Panels</a></li>
         <li class="parent ">
             <a href="#">

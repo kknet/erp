@@ -21,7 +21,6 @@ class UserService extends Service
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
-            'role' => $data['role']
         ]);
     }
 
@@ -37,7 +36,6 @@ class UserService extends Service
         if ($user) {
             $user->name = $params['name'];
             $user->email = $params['email'];
-            $user->role = $params['role'];
             $user->save();
         }
     }

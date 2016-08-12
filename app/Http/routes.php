@@ -31,12 +31,19 @@ $router->group([
 
 
 $router->group([
-    'namespace' => 'Order',
+    'namespace' => 'Record',
     'middleware' => 'auth'
 ], function () {
-    Route::resource('order', 'OrderController');
+    Route::resource('record', 'RecordController');
 });
 
+$router->group([
+    'namespace' => 'Category',
+    'middleware' => 'auth'
+], function () {
+    Route::get('category/{id}/delete', 'CategoryController@destroy');
+    Route::resource('category', 'CategoryController');
+});
 
 $router->group([
     'namespace' => 'Member'

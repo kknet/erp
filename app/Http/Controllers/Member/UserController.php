@@ -89,9 +89,8 @@ class UserController extends Controller
         $name = $request->get('name');
         $password = $request->get('password');
         $email = $request->get('email');
-        $role = $request->get('role');
 
-        $param = compact('name', 'password', 'email', 'role');
+        $param = compact('name', 'password', 'email');
         $this->userService->register($param);
 
         return redirect('user/login');
@@ -153,9 +152,8 @@ class UserController extends Controller
 
         $name = $request->get('name');
         $email = $request->get('email');
-        $role = $request->get('role');
 
-        $param = compact('id', 'name', 'email', 'role');
+        $param = compact('id', 'name', 'email');
 
         $this->userService->update($param);
 

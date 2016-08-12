@@ -108,37 +108,39 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="panel panel-default">
-                <div class="panel-heading">用户信息列表</div>
+                <div class="panel-heading">更新用户信息</div>
                 <div class="panel-body">
-                    <table data-toggle="table" data-show-refresh="true" data-show-toggle="true" data-show-columns="true"
-                           data-search="true" data-select-item-name="toolbar1" data-pagination="true"
-                           data-sort-name="name" data-sort-order="desc">
-                        <thead>
-                        <tr>
-                            <th data-field="state" data-checkbox="true">Item ID</th>
-                            <th data-field="id" data-sortable="true">ID</th>
-                            <th data-field="name" data-sortable="true">用户名</th>
-                            <th data-field="email" data-sortable="true">邮箱</th>
-                            <th data-field="operation" data-sortable="false">操作</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach ($users as $user)
-                            <tr>
-                                <td></td>
-                                <td>{{$user->id}}</td>
-                                <td>{{$user->name}}</td>
-                                <td>{{$user->email}}</td>
-                                <td>
-                                    @if($user->role!==0)
-                                        <a href="/user/{{$user->id}}/edit">编辑</a>|<a
-                                                href="/user/{{$user->id}}/delete">删除</a>
-                                    @endif
-                                </td>
-                            </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
+                    <form role="form" action="/category" method="post">
+                        <input type="hidden" name="_method" value="PUT">
+                        <div class="form-group">
+                            <label>用户名</label>
+                            <input class="form-control" placeholder="用户名" name="name" value="{{$user->name}}">
+                        </div>
+
+                        <div class="form-group">
+                            <label>邮箱</label>
+                            <input class="form-control" placeholder="邮箱" name="email" value="{{$user->email}}">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">更新用户</button>
+                        <a href="#" onclick="document.reset.submit()">重置密码</a>
+                        @if (count($errors) > 0)
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+                    </form>
+                    <form name='reset' method="POST" action="/password/email">
+                        {!! csrf_field() !!}
+                        <input type="hidden" name="email" value="{{$user->email}}">
+                    </form>
+                    @if(session('status'))
+                        <div class="alert alert-danger">{{session('status')}}</div>
+                    @endif
                 </div>
             </div>
         </div>
