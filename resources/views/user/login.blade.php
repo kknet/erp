@@ -37,7 +37,7 @@
                                 <input name="remember" type="checkbox" value="Remember Me">记住我
                             </label>
                         </div>
-                        <button type="submit" class="btn btn-primary">登录</button>
+                        <button type="submit" class="btn btn-primary">登录</button><a href="/user/create" class="" style="float: right">还没账号？前往注册-></a>
                     </fieldset>
                 </form>
                 @if (isset($error))

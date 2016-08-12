@@ -43,7 +43,7 @@
                             <input type="radio" name="role" value="2">财务
                         </div>
 
-                        <button type='submit' class="btn btn-primary">提交</button>
+                        <button type='submit' class="btn btn-primary">提交</button><a href="/user/login" class="" style="float: right">已有账号？快去登录</a>
                     </fieldset>
                 </form>
                 @if (count($errors) > 0)
