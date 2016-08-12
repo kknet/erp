@@ -54,7 +54,7 @@ class ToDoListController extends Controller
 
 
     /**
-     * 更新一条to-do-list
+     * 更新一条to-do-list的标记状态
      *
      * @param  Request $request
      * @param  int $id
@@ -62,15 +62,9 @@ class ToDoListController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $params = [
-            'id' => $id ?: 0,
-            'userID' => $request->get('userID') ?: 0,
-            'content' => $request->get('content') ?: '',
-            'isMarked' => $request->get('isMarked') ?: 0
-        ];
-        if ($this->toDoListService->update($params)) {
+        if ($this->toDoListService->update($id)) {
             $toDoList = $this->toDoListService->get($id);
-            exit(JsonUtil::toJson(0, $toDoList));
+            exit(JsonUtil::toJson(0, [$toDoList]));
         } else {
             exit(JsonUtil::toJson(2));
         }

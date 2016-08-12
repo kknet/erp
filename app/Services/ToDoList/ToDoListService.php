@@ -52,14 +52,12 @@ class ToDoListService extends Service
     /**
      * 更新计划
      *
-     * @param array $param
+     * @param int $id
      */
-    public function update($param = [])
+    public function update($id = 0)
     {
-        $toDoList = ToDoList::find($param['id']);
-        $toDoList->user_id = $param['userID'];
-        $toDoList->content = $param['content'];
-        $toDoList->is_marked = $param['isMarked'];
+        $toDoList = ToDoList::find($id);
+        $toDoList->is_marked = $toDoList->is_marked === 0 ? 1 : 0;
         return $toDoList->save();
     }
 

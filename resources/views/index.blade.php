@@ -229,21 +229,25 @@
                 <div class="panel-heading dark-overlay"><span class="glyphicon glyphicon-check"></span>To-do List
                 </div>
                 <div class="panel-body">
-                    <ul class="todo-list">
+                    <ul id="todo-loop" class="todo-list">
                         @foreach($toDoList as $toDo)
-                            <li class="todo-list-item">
+                            <li id="todo-{{$toDo->id}}" class="todo-list-item">
                                 <div class="checkbox">
                                     <input type="checkbox" id="checkbox"/>
                                     <label for="checkbox">{{$toDo->content}}</label>
                                 </div>
                                 <div class="pull-right action-buttons">
-                                    <a href="#"><span class="glyphicon glyphicon-pencil"></span></a>
-                                    <a href="#" class="flag">
-                                        <span class="glyphicon glyphicon-flag"
-                                              @if($toDo->is_marked===1)style="color: darkred" @endif>
+                                    {{--<a href="#"><span class="glyphicon glyphicon-pencil"></span></a>--}}
+                                    <a href="javascript:void(0)" class="flag" onclick="mark({{$toDo->id}})">
+                                        <span id="flag-{{$toDo->id}}" class="glyphicon glyphicon-flag"
+                                              @if($toDo->is_marked===1)
+                                              style="color: darkred"
+                                              @else
+                                              style="color: #9fadbb"@endif>
                                         </span>
                                     </a>
-                                    <a href="#" class="trash"><span class="glyphicon glyphicon-trash"></span></a>
+                                    <a href="javascript:void(0)" class="trash" onclick="drop({{$toDo->id}})"><span
+                                                class="glyphicon glyphicon-trash"></span></a>
                                 </div>
                             </li>
                         @endforeach
@@ -251,9 +255,10 @@
                 </div>
                 <div class="panel-footer">
                     <div class="input-group">
-                        <input id="btn-input" type="text" class="form-control input-md" placeholder="Add new task"/>
+                        <input id="btn-input" type="text" class="form-control input-md" placeholder="to-do内容"/>
                         <span class="input-group-btn">
-								<button class="btn btn-primary btn-md" id="btn-todo">Add</button>
+								<button class="btn btn-primary btn-md" id="btn-todo"
+                                        onclick="add({{session('user')['id']}})">新建to-do</button>
 							</span>
                     </div>
                 </div>
@@ -270,6 +275,8 @@
 <script src="js/easypiechart.js"></script>
 <script src="js/easypiechart-data.js"></script>
 <script src="js/bootstrap-datepicker.js"></script>
+<script src="js/to-do-list.js"></script>
+
 <script>
     $('#calendar').datepicker({});
 
@@ -287,6 +294,7 @@
         if ($(window).width() <= 767) $('#sidebar-collapse').collapse('hide')
     })
 </script>
+
 </body>
 
 </html>
