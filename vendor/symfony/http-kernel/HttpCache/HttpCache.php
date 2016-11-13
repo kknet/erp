@@ -154,6 +154,8 @@ class HttpCache implements HttpKernelInterface, TerminableInterface
      * Gets the Surrogate instance.
      *
      * @return SurrogateInterface A Surrogate instance
+     *
+     * @throws \LogicException
      */
     public function getSurrogate()
     {
@@ -557,7 +559,7 @@ class HttpCache implements HttpKernelInterface, TerminableInterface
             } else {
                 // backend is slow as hell, send a 503 response (to avoid the dog pile effect)
                 $entry->setStatusCode(503);
-                $entry->setContent('503 Services Unavailable');
+                $entry->setContent('503 Service Unavailable');
                 $entry->headers->set('Retry-After', 10);
             }
 
@@ -578,6 +580,9 @@ class HttpCache implements HttpKernelInterface, TerminableInterface
      */
     protected function store(Request $request, Response $response)
     {
+        if (!$response->headers->has('Date')) {
+            $response->setDate(\DateTime::createFromFormat('U', time()));
+        }
         try {
             $this->store->write($request, $response);
 

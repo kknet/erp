@@ -181,6 +181,31 @@ class HttpCacheTest extends HttpCacheTestCase
         $this->assertEquals(304, $this->response->getStatusCode());
     }
 
+    public function testIncrementsMaxAgeWhenNoDateIsSpecifiedEventWhenUsingETag()
+    {
+        $this->setNextResponse(
+            200,
+            array(
+                'ETag' => '1234',
+                'Cache-Control' => 'public, s-maxage=60',
+            )
+        );
+
+        $this->request('GET', '/');
+        $this->assertHttpKernelIsCalled();
+        $this->assertEquals(200, $this->response->getStatusCode());
+        $this->assertTraceContains('miss');
+        $this->assertTraceContains('store');
+
+        sleep(2);
+
+        $this->request('GET', '/');
+        $this->assertHttpKernelIsNotCalled();
+        $this->assertEquals(200, $this->response->getStatusCode());
+        $this->assertTraceContains('fresh');
+        $this->assertEquals(2, $this->response->headers->get('Age'));
+    }
+
     public function testValidatesPrivateResponsesCachedOnTheClient()
     {
         $this->setNextResponse(200, array(), '', function ($request, $response) {
@@ -951,7 +976,7 @@ class HttpCacheTest extends HttpCacheTestCase
     {
         $count = 0;
         $this->setNextResponse(200, array('Cache-Control' => 'max-age=10000'), '', function ($request, $response) use (&$count) {
-            $response->headers->set('Vary', 'Accept Member-Agent Foo');
+            $response->headers->set('Vary', 'Accept User-Agent Foo');
             $response->headers->set('Cache-Control', 'public, max-age=10');
             $response->headers->set('X-Response-Count', ++$count);
             $response->setContent($request->headers->get('USER_AGENT'));
@@ -975,7 +1000,7 @@ class HttpCacheTest extends HttpCacheTestCase
     {
         $count = 0;
         $this->setNextResponse(200, array('Cache-Control' => 'max-age=10000'), '', function ($request, $response) use (&$count) {
-            $response->headers->set('Vary', 'Accept Member-Agent Foo');
+            $response->headers->set('Vary', 'Accept User-Agent Foo');
             $response->headers->set('Cache-Control', 'public, max-age=10');
             $response->headers->set('X-Response-Count', ++$count);
             $response->setContent($request->headers->get('USER_AGENT'));

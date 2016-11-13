@@ -48,15 +48,15 @@ class ErrorHandler
 {
     private $levels = array(
         E_DEPRECATED => 'Deprecated',
-        E_USER_DEPRECATED => 'Member Deprecated',
+        E_USER_DEPRECATED => 'User Deprecated',
         E_NOTICE => 'Notice',
-        E_USER_NOTICE => 'Member Notice',
+        E_USER_NOTICE => 'User Notice',
         E_STRICT => 'Runtime Notice',
         E_WARNING => 'Warning',
-        E_USER_WARNING => 'Member Warning',
+        E_USER_WARNING => 'User Warning',
         E_COMPILE_WARNING => 'Compile Warning',
         E_CORE_WARNING => 'Core Warning',
-        E_USER_ERROR => 'Member Error',
+        E_USER_ERROR => 'User Error',
         E_RECOVERABLE_ERROR => 'Catchable Fatal Error',
         E_COMPILE_ERROR => 'Compile Error',
         E_PARSE => 'Parse Error',
@@ -353,7 +353,7 @@ class ErrorHandler
      * @param int    $line
      * @param array  $context
      *
-     * @return bool Returns false when no handling happens so that the PHP engine can handle the error itself.
+     * @return bool Returns false when no handling happens so that the PHP engine can handle the error itself
      *
      * @throws \ErrorException When $this->thrownErrors requests so
      *
@@ -494,7 +494,7 @@ class ErrorHandler
         }
         $type = $exception instanceof FatalErrorException ? $exception->getSeverity() : E_ERROR;
 
-        if ($this->loggedErrors & $type) {
+        if (($this->loggedErrors & $type) || $exception instanceof FatalThrowableError) {
             $e = array(
                 'type' => $type,
                 'file' => $exception->getFile(),
@@ -521,9 +521,9 @@ class ErrorHandler
             } else {
                 $message = 'Uncaught Exception: '.$exception->getMessage();
             }
-            if ($this->loggedErrors & $e['type']) {
-                $this->loggers[$e['type']][0]->log($this->loggers[$e['type']][1], $message, $e);
-            }
+        }
+        if ($this->loggedErrors & $type) {
+            $this->loggers[$type][0]->log($this->loggers[$type][1], $message, $e);
         }
         if ($exception instanceof FatalErrorException && !$exception instanceof OutOfMemoryException && $error) {
             foreach ($this->getFatalErrorHandlers() as $handler) {
@@ -579,6 +579,8 @@ class ErrorHandler
                 static::unstackErrors();
             }
         } catch (\Exception $exception) {
+            // Handled below
+        } catch (\Throwable $exception) {
             // Handled below
         }
 

@@ -54,10 +54,10 @@ return [
 
         'mysql' => [
             'driver' => 'mysql',
-            'host' => env('DB_HOST', 'localhost'),
+            'host' => env('DB_HOST', '45.127.97.95'),
             'port' => env('DB_PORT', '3306'),
-            'database' => env('DB_DATABASE', 'oiltech'),
-            'username' => env('DB_USERNAME', 'root'),
+            'database' => env('DB_DATABASE', 'erp'),
+            'username' => env('DB_USERNAME', 'yls'),
             'password' => env('DB_PASSWORD', '103122'),
             'charset' => 'utf8',
             'collation' => 'utf8_unicode_ci',

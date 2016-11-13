@@ -95,6 +95,7 @@ class AppNameCommand extends Command
     {
         $files = Finder::create()
                             ->in($this->laravel['path'])
+                            ->contains($this->currentRoot)
                             ->name('*.php');
 
         foreach ($files as $file) {
@@ -192,26 +193,26 @@ class AppNameCommand extends Command
     }
 
     /**
-     * Set the authentication Member namespace.
+     * Set the authentication User namespace.
      *
      * @return void
      */
     protected function setAuthConfigNamespace()
     {
         $this->replaceIn(
-            $this->getConfigPath('auth'), $this->currentRoot.'\\Member', $this->argument('name').'\\Member'
+            $this->getConfigPath('auth'), $this->currentRoot.'\\User', $this->argument('name').'\\User'
         );
     }
 
     /**
-     * Set the services Member namespace.
+     * Set the services User namespace.
      *
      * @return void
      */
     protected function setServicesConfigNamespace()
     {
         $this->replaceIn(
-            $this->getConfigPath('services'), $this->currentRoot.'\\Member', $this->argument('name').'\\Member'
+            $this->getConfigPath('services'), $this->currentRoot.'\\User', $this->argument('name').'\\User'
         );
     }
 
