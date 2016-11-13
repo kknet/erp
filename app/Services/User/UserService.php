@@ -2,9 +2,8 @@
 
 namespace App\Services\User;
 
-use App\Services\Service;
-use DB;
 use App\Model\User;
+use App\Services\Service;
 
 class UserService extends Service
 {

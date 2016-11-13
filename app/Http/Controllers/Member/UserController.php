@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Member;
 use App\Services\User\UserService;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Config;
+use Auth;
+use Config;
 
 class UserController extends Controller
 {
