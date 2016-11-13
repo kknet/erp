@@ -5,7 +5,6 @@ namespace App\Services\Record;
 
 use App\Model\Record;
 use App\Services\Service;
-use Illuminate\Support\Facades\DB;
 
 class RecordService extends Service
 {

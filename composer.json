@@ -8,8 +8,7 @@
         "php": ">=5.5.9",
         "laravel/framework": "5.2.*",
         "doctrine/dbal": "^2.5",
-        "maatwebsite/excel": "^2.1",
-        "barryvdh/laravel-ide-helper": "^2.2"
+        "maatwebsite/excel": "^2.1"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
@@ -44,8 +43,7 @@
         ],
         "post-update-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postUpdate",
-            "php artisan optimize",
-            "php artisan ide-helper:generate"
+            "php artisan optimize"
         ]
     },
     "config": {
